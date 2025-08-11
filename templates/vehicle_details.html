@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Details - Logistics</title>
+    <!-- Basic styling consistent with main app -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style/style.css') }}"
+    />
+    <!-- Specific styling for this page -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style/vehicle_details_style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="details-container">
+      <a href="/" class="back-button">← Back to Dashboard</a>
+      <h1 id="vehicleDetailsTitle" class="main-title">
+        Loading Vehicle Details...
+      </h1>
+      <div id="loadingIndicator" class="loading-spinner"></div>
+      <div id="errorMessage" class="error-message" style="display: none"></div>
+
+      <div id="vehicleDetailsContent" style="display: none">
+        <section class="vehicle-info-section section-card">
+          <div class="vehicle-image-placeholder">
+            <!-- Main Vehicle Image and Upload -->
+            <img
+              src="https://placehold.co/400x250/E0E6ED/7F8C8D?text=Vehicle+Image"
+              alt="Vehicle Image"
+              class="main-vehicle-image"
+              id="mainVehicleImage"
+            />
+            <!-- The image caption was removed as per your previous request -->
+            <div class="image-upload-area">
+              <label for="mainImageUpload" class="upload-button"
+                >Upload New Image</label
+              >
+              <input
+                type="file"
+                id="mainImageUpload"
+                accept="image/*"
+                style="display: none"
+              />
+              <button
+                id="removeMainImageBtn"
+                class="remove-image-button"
+                style="display: none"
+              >
+                Remove Image
+              </button>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info-item">
+              <strong>Model:</strong>
+              <span
+                id="displayModel"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Year:</strong>
+              <span
+                id="displayYear"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Make:</strong>
+              <span
+                id="displayMake"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>VIN:</strong>
+              <span
+                id="displayVIN"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Plate Number:</strong>
+              <span
+                id="displayPlateNumber"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Color:</strong>
+              <span
+                id="displayColor"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Category:</strong>
+              <span
+                id="displayCategory"
+                class="editable-field"
+                contenteditable="false"
+              ></span>
+            </div>
+            <div class="info-item">
+              <strong>Registered On:</strong>
+              <span id="detailRegisteredOn"></span>
+            </div>
+
+            <!-- Fuel Level Display and Edit -->
+            <div class="info-item">
+              <strong>Fuel Level:</strong>
+              <div class="fuel-level-indicator">
+                <span id="displayFuelLevel"></span>
+                <div id="fuelLevelBar" class="fuel-level-bar">
+                  <div id="fuelLevelFill" class="fuel-level-fill"></div>
+                </div>
+                <select
+                  id="editFuelLevel"
+                  class="edit-input"
+                  style="display: none"
+                >
+                  <option value="Full">Full</option>
+                  <option value="Half">Half</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Editable Last Fueled Date -->
+            <div class="info-item">
+              <strong>Last Fueled:</strong>
+              <span id="displayLastFueled"></span>
+              <input
+                type="date"
+                id="editLastFueled"
+                class="edit-input"
+                style="display: none"
+              />
+            </div>
+
+            <!-- Dynamic Last Maintenance Display -->
+            <div class="info-item">
+              <strong>Last Maintenance:</strong>
+              <span id="detailLastMaintenance">N/A</span>
+            </div>
+
+            <!-- Action buttons now stacked vertically -->
+            <div class="full-width-item action-buttons-container">
+              <button id="editDetailsBtn" class="edit-details-btn">
+                Edit Details
+              </button>
+              <button
+                id="updateDetailsBtn"
+                class="submit-btn"
+                style="display: none"
+              >
+                Update Details
+              </button>
+              <button
+                id="cancelEditDetailsBtn"
+                class="secondary-btn"
+                style="display: none"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <h2>📊 Maintenance Logs</h2>
+          <div id="maintenanceLogsList" class="logs-list">
+            <!-- Maintenance logs will be loaded here by JavaScript -->
+            <p class="no-data">No maintenance logs yet.</p>
+          </div>
+          <h3>Add New Maintenance Log</h3>
+          <form id="addMaintenanceForm" class="add-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="logType"
+                  >Type <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  id="logType"
+                  required
+                  placeholder="e.g., Oil Change, Tire Rotation"
+                />
+              </div>
+              <div class="form-group">
+                <label for="logDate"
+                  >Date <span class="required">*</span></label
+                >
+                <input type="date" id="logDate" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="logNotes">Notes</label>
+              <textarea
+                id="logNotes"
+                placeholder="Any specific details about the maintenance..."
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Add Log</button>
+          </form>
+        </section>
+
+        <section class="section-card">
+          <h2>📄 Vehicle Documents</h2>
+          <div id="documentsList" class="documents-list">
+            <!-- Documents will be loaded here by JavaScript -->
+            <p class="no-data">No documents uploaded yet.</p>
+          </div>
+          <h3>Upload New Document</h3>
+          <form id="addDocumentForm" class="add-form">
+            <div class="form-group">
+              <label for="documentName"
+                >Document Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="documentName"
+                required
+                placeholder="e.g., Insurance Policy, Registration"
+              />
+            </div>
+            <div class="form-group">
+              <label for="documentFile"
+                >Document File <span class="required">*</span></label
+              >
+              <input
+                type="file"
+                id="documentFile"
+                accept="image/*,application/pdf"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="expiryDate">Expiry Date</label>
+              <input type="date" id="expiryDate" />
+            </div>
+            <button type="submit" class="submit-btn">Upload Document</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <!-- Custom Modal (copied from index.html for consistency) -->
+    <div id="customModal" class="modal-overlay hidden" style="display: none">
+      <div class="modal-content">
+        <h3 id="modalTitle" class="modal-header"></h3>
+        <p id="modalBody" class="modal-body"></p>
+        <div class="flex justify-center space-x-3 mt-4">
+          <button
+            class="modal-close-btn bg-red-600 hover:bg-red-700"
+            id="modalConfirmBtn"
+            style="display: none"
+          >
+            Confirm Delete
+          </button>
+          <button class="modal-close-btn" id="modalClose">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script/vehicle_details_script.js') }}"></script>
+  </body>
+</html>

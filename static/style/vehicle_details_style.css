@@ -1,0 +1,804 @@
+/* General Body and Container Styling */
+body {
+    font-family: 'Inter', sans-serif; /* Modern, clean font */
+    background: linear-gradient(to bottom right, #e0f2fe, #f0f9ff); /* Light blue gradient background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Allow content to stack */
+    align-items: center;
+    padding: 30px 20px; /* More padding for overall content */
+    color: #334155; /* Darker default text color */
+}
+
+.details-container {
+    background: #ffffff; /* Pure white for sections */
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+    padding: 50px; /* Increased padding */
+    width: 100%;
+    max-width: 1000px; /* Wider container for a richer layout */
+    margin: 0 auto; /* Center horizontally */
+    animation: fadeIn 0.8s ease-out; /* Slower, smoother fade-in */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Back Button */
+.back-button {
+    display: inline-flex; /* Use flex for icon and text alignment */
+    align-items: center;
+    gap: 8px; /* Space between arrow and text */
+    margin-bottom: 40px; /* More space below button */
+    padding: 12px 25px;
+    background: #4f46e5; /* Deep indigo for a professional look */
+    color: white;
+    text-decoration: none;
+    border-radius: 10px; /* Slightly more rounded */
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); /* Shadow for interaction */
+}
+
+.back-button:hover {
+    background: #4338ca; /* Darker indigo on hover */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+/* Main Title */
+.main-title {
+    font-size: 3.2rem; /* Larger, more impactful title */
+    font-weight: 800; /* Extra bold */
+    text-align: center;
+    margin-bottom: 50px; /* More space below title */
+    color: #1a202c; /* Darker, richer color */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
+}
+
+/* Loading/Error Messages */
+.loading-spinner {
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #4f46e5; /* Match theme color */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 80px auto; /* More vertical space */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message, .no-data {
+    background: #ffe6e6; /* Light red for errors */
+    color: #cc0000; /* Darker red */
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #ffcccc;
+    margin: 20px auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.1);
+}
+
+.no-data {
+    background: #f0f9ff; /* Very light blue for no data */
+    color: #64748b;
+    border: 1px dashed #bfdbfe; /* Dashed border */
+}
+
+
+/* Section Cards */
+.section-card {
+    background: #f8fafc; /* Slightly off-white for sections */
+    border-radius: 18px;
+    padding: 40px; /* More padding */
+    margin-top: 40px; /* More space between sections */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+    border: 1px solid #e2e8f0; /* Subtle border */
+}
+
+.section-card h2 {
+    color: #1e293b; /* Darker heading color */
+    font-size: 2.2rem; /* Larger section titles */
+    font-weight: 700;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #cbd5e1; /* Clearer separator */
+    text-align: left; /* Align section titles left */
+}
+
+/* Vehicle Info Section */
+.vehicle-info-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 40px; /* More space between image and details */
+    margin-bottom: 50px; /* Space below main vehicle info */
+    align-items: flex-start;
+}
+
+.vehicle-image-placeholder {
+    flex: 1;
+    min-width: 350px; /* Minimum width for image section */
+    height: 250px; /* Fixed height for consistency */
+    background: #e2e8f0; /* Light gray background */
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden; /* Ensure image fits */
+    border: 2px solid #cbd5e1;
+    position: relative; /* For text overlay */
+}
+
+.main-vehicle-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area */
+    border-radius: 16px; /* Match parent */
+    transition: transform 0.3s ease;
+}
+
+.vehicle-image-placeholder:hover .main-vehicle-image {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* The image caption is being removed from HTML */
+/* .image-caption {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    pointer-events: none;
+} */
+
+/* Image upload area for main image */
+.image-upload-area {
+    display: none; /* Hidden by default, shown in edit mode */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.upload-button, .remove-image-button {
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.upload-button {
+    background: #3b82f6; /* Blue */
+    color: white;
+}
+
+.upload-button:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.remove-image-button {
+    background: #ef4444; /* Red */
+    color: white;
+    display: none; /* Managed by JS */
+}
+
+.remove-image-button:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+
+.info-grid {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted for more flexibility */
+    gap: 25px; /* More space between items */
+    background: #f8fafc; /* Consistent background */
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.info-item {
+    padding: 18px; /* More padding */
+    background: #ffffff; /* White background for individual items */
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e6ed;
+    font-size: 1rem;
+    color: #475569; /* Slightly softer text color */
+}
+
+.info-item strong {
+    color: #1e293b;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px; /* More space below label */
+}
+
+/* Styles for editable fields */
+.editable-field {
+    border: 1px dashed transparent; /* Start with transparent border */
+    padding: 3px 8px;
+    border-radius: 5px;
+    min-width: 50px; /* Ensure contenteditable has a visible area */
+    display: inline-block; /* Essential for contenteditable on span */
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editable-field[contenteditable="true"] { /* Apply active editable styles when contenteditable is true */
+    border-color: #a7a7a7; /* Dashed border for editable areas */
+}
+
+
+.editable-field:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.edit-input { /* For date input */
+    padding: 3px 8px;
+    border: 1px dashed #a7a7a7;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #475569;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Action buttons container for main vehicle details */
+.action-buttons-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 15px; /* Reduced gap between stacked buttons */
+    margin-top: 30px;
+    grid-column: 1 / -1; /* Make it span full width of the grid */
+}
+
+.edit-details-btn, .update-details-btn, .cancel-edit-details-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px; /* Ensure all buttons have this rounded corner */
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: fit-content; /* Allow button to size to content */
+    min-width: 180px; /* Ensure a consistent minimum width */
+}
+
+/* Beautiful Edit Details Button */
+.edit-details-btn {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); /* Blue gradient */
+    color: white;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.edit-details-btn:hover {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Darker blue */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Update button styling */
+.submit-btn { /* for update button */
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white;
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+/* Improved Cancel button styling */
+.secondary-btn { /* for cancel button */
+    background: #6c757d; /* A distinct, muted gray */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Make it rounded */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 12px 28px; /* Ensure same padding as other buttons for consistent size */
+    min-width: 180px; /* Ensure consistent minimum width */
+}
+
+.secondary-btn:hover {
+    background: #5a6268; /* Darker gray on hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Lists for documents and logs */
+.logs-list, .documents-list {
+    margin-top: 25px;
+    margin-bottom: 40px;
+    max-height: 450px; /* Slightly taller scroll area */
+    overflow-y: auto;
+    padding-right: 15px; /* Ample space for scrollbar */
+    list-style: none; /* Remove default list bullets */
+}
+
+.log-item, .document-item {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 18px; /* More space between items */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.log-item:hover, .document-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.log-item h4, .document-item h4 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #e0e6ed; /* Subtle separator */
+    padding-bottom: 8px;
+}
+
+.log-item p {
+    font-size: 1rem;
+    color: #475569;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.log-item .log-date, .document-item .doc-expiry {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px; /* Space between buttons */
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eff6ff; /* Lighter top border for actions */
+}
+
+.item-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.item-actions .delete-btn {
+    background: #ef4444; /* Brighter red */
+    color: white;
+}
+
+.item-actions .delete-btn:hover {
+    background: #dc2626; /* Darker red */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+
+.document-item .view-btn {
+    background: #3b82f6; /* Tailwind blue-500 */
+    color: white;
+}
+
+.document-item .view-btn:hover {
+    background: #2563eb; /* Darker blue */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* New styles for document edit/save/cancel buttons */
+.document-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.document-actions .action-btn { /* Reusing action-btn from other sections, adjust as needed */
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    min-width: unset; /* Override min-width if too large */
+}
+
+/* Override for specific document action buttons */
+.document-actions .save-btn {
+    background: #28a745; /* Green */
+    color: white;
+}
+.document-actions .save-btn:hover {
+    background: #218838;
+}
+.document-actions .cancel-btn {
+    background: #6c757d; /* Gray */
+    color: white;
+}
+.document-actions .cancel-btn:hover {
+    background: #5a6268;
+}
+
+
+/* Forms for adding new logs/documents */
+.add-form {
+    background: #f0f9ff; /* Very light blue background */
+    border-radius: 18px;
+    padding: 35px;
+    margin-top: 30px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.03); /* Subtle inner shadow */
+    border: 1px solid #dbeafe; /* Light blue border */
+}
+
+.add-form h3 {
+    color: #1e293b;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.add-form .form-group {
+    margin-bottom: 20px; /* More space between form groups */
+}
+
+.add-form label {
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 10px; /* More space below label */
+}
+
+.add-form input, .add-form textarea {
+    width: 100%;
+    padding: 14px 18px; /* Larger padding */
+    border: 1px solid #cbd5e1;
+    border-radius: 10px; /* More rounded inputs */
+    font-size: 1rem;
+    background-color: #ffffff; /* White input background */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-form input:focus, .add-form textarea:focus {
+    outline: none;
+    border-color: #4f46e5; /* Primary theme color on focus */
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2); /* Stronger focus ring */
+}
+
+.add-form textarea {
+    min-height: 100px; /* Taller textarea */
+}
+
+.add-form .submit-btn {
+    width: auto;
+    padding: 15px 35px; /* Larger button */
+    margin-top: 25px; /* More space above button */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); /* Blue gradient */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+
+.add-form .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+}
+
+.no-data {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* Document Thumbnail/Preview */
+.document-thumbnail {
+    max-width: 120px; /* Larger thumbnail */
+    max-height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+.document-item .doc-preview-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    gap: 15px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px dashed #dbeafe; /* Light blue dashed border */
+}
+
+.document-item .doc-preview-wrapper p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* PDF/File Preview Icons */
+.pdf-preview, .file-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.pdf-icon, .file-icon {
+    width: 30px;
+    height: 30px;
+    color: #ef4444; /* Red for PDF */
+}
+.file-icon {
+    color: #3b82f6; /* Blue for generic file */
+}
+
+/* Fuel Level Indicator */
+.fuel-level-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fuel-level-bar {
+    width: 100px; /* Fixed width for the bar */
+    height: 20px;
+    background-color: #e0e6ed; /* Empty bar color */
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #cbd5e1;
+}
+
+.fuel-level-fill {
+    height: 100%;
+    background-color: #4f46e5; /* Default fill color */
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+/* Specific colors for fuel levels */
+.fuel-level-full .fuel-level-fill {
+    width: 100%;
+    background-color: #28a745; /* Green for Full */
+}
+.fuel-level-half .fuel-level-fill {
+    width: 50%;
+    background-color: #ffc107; /* Yellow for Half */
+}
+.fuel-level-low .fuel-level-fill {
+    width: 25%; /* Smaller fill for Low */
+    background-color: #dc3545; /* Red for Low */
+}
+
+
+/* Modal specific adjustments - ensure consistency with index.html */
+/* Copied directly from style.css for main app to ensure consistency */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay:not(.hidden) {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    animation: fadeInScale 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.modal-body {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.modal-close-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+/* Specific style for the "Confirm Delete" button */
+.modal-close-btn#modalConfirmBtn { /* Target by ID for specific styling */
+    background: #ef4444 !important; /* Red, overriding default blue */
+    color: white !important;
+}
+
+.modal-close-btn#modalConfirmBtn:hover {
+    background: #dc2626 !important; /* Darker red */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .details-container {
+        padding: 25px 15px;
+        margin: 20px auto;
+    }
+    .main-title {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+    .back-button {
+        margin-bottom: 25px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .vehicle-info-section {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .vehicle-image-placeholder {
+        min-width: unset;
+        height: 200px; /* Adjust height for smaller screens */
+        padding: 15px;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+    .section-card {
+        padding: 25px;
+        margin-top: 30px;
+    }
+    .section-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    .add-form {
+        padding: 25px;
+    }
+    .add-form h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    .add-form input, .add-form textarea {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    .add-form .submit-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    .log-item, .document-item {
+        padding: 20px;
+        margin-bottom: 12px;
+    }
+    .item-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .item-actions button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .details-container {
+        padding: 20px 10px;
+    }
+    .main-title {
+        font-size: 2rem;
+    }
+    .section-card h2 {
+        font-size: 1.6rem;
+    }
+    .info-item {
+        padding: 12px;
+    }
+    .add-form h3 {
+        font-size: 1.3rem;
+    }
+}

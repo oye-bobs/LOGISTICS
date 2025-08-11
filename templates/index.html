@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Registration System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="registration-container">
+      <div class="header">
+        <h1>🚗 Vehicle Registration</h1>
+        <p>Register your vehicle with our secure system</p>
+      </div>
+
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('register')">
+          🚗 Register Vehicle
+        </button>
+        <button class="nav-tab" onclick="showTab('vehicles')">
+          📋 View Vehicles
+        </button>
+        <button class="nav-tab" onclick="showTab('messages')">
+          💬 Messages
+        </button>
+      </div>
+
+      <div id="registerTab" class="tab-content active">
+        <div class="success-message" id="successMessage">
+          ✅ Vehicle registered successfully! Your registration is being
+          processed.
+        </div>
+
+        <form id="vehicleForm">
+          <div class="form-group">
+            <label for="vehicleModel"
+              >Vehicle Model <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="vehicleModel"
+              name="vehicleModel"
+              required
+              placeholder="e.g., Camry, Accord, Focus"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="plateNumber"
+              >Plate Number <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="plateNumber"
+              name="plateNumber"
+              required
+              placeholder="e.g., ABC-1234"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vehicleYear"
+                >Year <span class="required">*</span></label
+              >
+              <input
+                type="number"
+                id="vehicleYear"
+                name="vehicleYear"
+                required
+                min="1900"
+                max="2025"
+                placeholder="2023"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="vehicleMake"
+                >Make <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="vehicleMake"
+                name="vehicleMake"
+                required
+                placeholder="e.g., Toyota, Honda, Ford"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="vehicleVIN"
+              >Vehicle Identification Number (VIN)
+              <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="vehicleVIN"
+              name="vehicleVIN"
+              required
+              maxlength="17"
+              placeholder="17-character VIN"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vehicleColor"
+                >Color <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="vehicleColor"
+                name="vehicleColor"
+                required
+                placeholder="e.g., Red, Blue, White"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="vehicleCategory"
+                >Category <span class="required">*</span></label
+              >
+              <select
+                id="vehicleCategory"
+                name="vehicleCategory"
+                required
+                onchange="toggleOtherCategory()"
+              >
+                <option value="" disabled selected hidden>
+                  Select Category
+                </option>
+                <option value="car">Car</option>
+                <option value="truck">Truck</option>
+                <option value="saloon">Saloon</option>
+                <option value="suv">SUV</option>
+                <option value="van">Van</option>
+                <option value="motorcycle">Motorcycle</option>
+                <option value="bus">Bus</option>
+                <option value="coupe">Coupe</option>
+                <option value="convertible">Convertible</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="sedan">Sedan</option>
+                <option value="pickup">Pickup Truck</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div
+              class="form-group"
+              id="otherCategoryGroup"
+              style="display: none"
+            >
+              <label for="otherCategory"
+                >Specify Other Category <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="otherCategory"
+                name="otherCategory"
+                placeholder="Enter vehicle category"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Register Vehicle</button>
+        </form>
+      </div>
+
+      <div id="vehiclesTab" class="tab-content">
+        <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center">
+          📋 Registered Vehicles
+        </h2>
+        <div id="vehiclesList" class="vehicles-list">
+          <!-- Changed from vehicles-grid to vehicles-list -->
+          <div class="no-data">
+            No vehicles registered yet. Register your first vehicle using the
+            form above!
+          </div>
+        </div>
+      </div>
+
+      <div id="messagesTab" class="tab-content">
+  <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center">
+    💬 Messages
+  </h2>
+  <div class="messages-switcher">
+    <button id="showUnreadBtn" class="messages-switch-btn active">
+      Unread <span id="unreadCountBadge" class="badge">0</span>
+    </button>
+    <button id="showReadBtn" class="messages-switch-btn">
+      Read
+    </button>
+  </div>
+  <div id="messagesList" class="messages-container">
+    <div class="no-data">No messages available at the moment.</div>
+  </div>
+</div>
+
+    <!-- Custom Modal for Alerts/Messages -->
+    <div id="customModal" class="modal-overlay hidden" style="display: none">
+      <div class="modal-content">
+        <h3 id="modalTitle" class="modal-header"></h3>
+        <p id="modalBody" class="modal-body"></p>
+        <div class="flex justify-center space-x-3 mt-4">
+          <!-- Added flex container for buttons -->
+          <button
+            class="modal-close-btn bg-red-600 hover:bg-red-700"
+            id="modalConfirmBtn"
+            style="display: none"
+          >
+            Confirm Delete
+          </button>
+          <button class="modal-close-btn" id="modalClose">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+  </body>
+</html>
