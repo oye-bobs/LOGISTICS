@@ -81,6 +81,12 @@ def create_tables():
 with app.app_context():
     create_tables()
 
+# --- Static File Route (for debugging) ---
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    """Serve static files directly."""
+    return app.send_static_file(filename)
+
 # --- Global Error Handler ---
 @app.errorhandler(Exception)
 def handle_exception(e):
